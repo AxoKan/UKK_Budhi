@@ -46,6 +46,11 @@
           </td>
 
           <td class="text-center">
+          @if ($user->status != 1) <!-- Cek jika status bukan 2 -->
+  <div style="display: flex; gap: 10px; justify-content: center;">
+  <a href="{{ url('Nota/' . $user->id_transaksi) }}" class="btn btn-success" target="_blank" rel="noopener noreferrer">Nota</a>
+
+    @endif
           @if ($user->status != 2) <!-- Cek jika status bukan 2 -->
   <div style="display: flex; gap: 10px; justify-content: center;">
     <a href="{{ url('status/' . $user->id_transaksi) }}" class="btn btn-warning">Selesai</a>
@@ -55,6 +60,7 @@
         onclick="return confirm('Are you sure you want to Cancel this order?');">Cancel</a>
     @endif
   </div>
+  
 </td>
 
         </tr>
@@ -99,27 +105,31 @@
 
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const table = document.getElementById('mitraTable');
-    const rows = Array.from(table.querySelectorAll('tbody tr'));
+document.addEventListener('DOMContentLoaded', () => {
+  const table = document.getElementById('mitraTable');
+  const rows = Array.from(table.querySelectorAll('tbody tr'));
 
-    // Mengurutkan berdasarkan status
-    rows.sort((a, b) => {
-      const statusA = a.getAttribute('data-status');
-      const statusB = b.getAttribute('data-status');
+  // Mengurutkan berdasarkan status
+  rows.sort((a, b) => {
+    const statusA = a.getAttribute('data-status');
+    const statusB = b.getAttribute('data-status');
 
-      // Status 1 harus di atas (diurutkan terlebih dahulu)
-      if (statusA == 1 && statusB != 1) return -1;
-      if (statusA != 1 && statusB == 1) return 1;
+    // Status 1 harus di atas (diurutkan terlebih dahulu)
+    if (statusA == 1 && statusB != 1) return -1;
+    if (statusA != 1 && statusB == 1) return 1;
 
-      // Jika status sama, urutkan berdasarkan ID transaksi atau hal lainnya
-      return 0;
-    });
-
-    // Menambahkan baris yang sudah diurutkan kembali ke tabel
-    const tbody = table.querySelector('tbody');
-    rows.forEach(row => tbody.appendChild(row));
+    // Jika status sama, urutkan berdasarkan ID transaksi atau hal lainnya
+    return 0;
   });
+
+  // Menambahkan baris yang sudah diurutkan kembali ke tabel
+  const tbody = table.querySelector('tbody');
+  rows.forEach((row, index) => {
+    // Update nomor urut berdasarkan urutan tabel
+    row.querySelector('td').textContent = index + 1;
+    tbody.appendChild(row);
+  });
+});
   document.addEventListener('DOMContentLoaded', () => {
     const buttons = document.querySelectorAll('.view-order');
 

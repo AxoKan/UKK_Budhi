@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB; 
 use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class Website extends Controller
 {
@@ -452,50 +453,47 @@ print_r($isi);
 
     return redirect()->to('meja');
 }
-public function scan ()
+public function scan()
 {$userLevel = session()->get('Level');
     $allowedLevels = ['petugas','admin'];
 
     if (in_array($userLevel, $allowedLevels)) {
-    $user_id = session()->get('id_user');
-    $model = new M_lelang();
-
-       // Fetch all logo data
-       $logoData = $model->tampil('logo'); // Fetch all logos
-       $filteredLogo = $logoData->filter(function ($item) {
-           return $item->id_logo == 1; // Adjust this condition as needed
-       });
-       $data['satu'] = $filteredLogo->first();
-       $logs = $model->getActivityLogs();
-       $data['users'] = $model->tampil('user', 'id_user');
-       try {
-           $timestamp = now(); // Use Laravel's now() function for current time
-           DB::table('activity_log')->insert([
-               'user_id' => $user_id,
-               'activity' => 'View',
-               'description' => 'User viewed Scan Page.',
-               'timestamp' => $timestamp,
-           ]);
-       }catch (\Exception $e) {
-               // Log the error if activity logging fails
-               logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
-           }
-
-
-
-    echo view ('esensial/header', $data);
-    echo view ('esensial/menu', $data);
-    echo view('website/scan/scan');
-    echo view ('esensial/footer');
+        $user_id = session()->get('id_user');
+        $model = new M_lelang();
+    
+           // Fetch all logo data
+           $logoData = $model->tampil('logo'); // Fetch all logos
+           $filteredLogo = $logoData->filter(function ($item) {
+               return $item->id_logo == 1; // Adjust this condition as needed
+           });
+           $data['satu'] = $filteredLogo->first();
+           $logs = $model->getActivityLogs();
+           $data['users'] = $model->tampil('user', 'id_user');
+           try {
+               $timestamp = now(); // Use Laravel's now() function for current time
+               DB::table('activity_log')->insert([
+                   'user_id' => $user_id,
+                   'activity' => 'View',
+                   'description' => 'User viewed Scan Page.',
+                   'timestamp' => $timestamp,
+               ]);
+           }catch (\Exception $e) {
+                   // Log the error if activity logging fails
+                   logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+               }
+    
+    
+    
+        echo view ('esensial/header', $data);
+        echo view ('esensial/menu', $data);
+        echo view('website/scan/scan');
+        echo view ('esensial/footer');
 } else {
     return redirect()->to('http://localhost:8080/home/error_404');
 }
 }
 public function kasir($id)
-{$userLevel = session()->get('Level');
-    $allowedLevels = ['petugas','admin'];
-
-    if (in_array($userLevel, $allowedLevels)) {
+{
         $model = new M_lelang();
     $user_id = session()->get('id_user');
    // Fetch all logo data
@@ -527,10 +525,10 @@ $data['meja']=$model->getWhere('meja', $where);
     echo view('esensial/header',$data);
     echo view('website/Kasir/kasir',$data);
     echo view('esensial/footer',$data);
-} else {
-    return redirect()->to('http://localhost:8080/home/error_404');
+
 }
-}
+
+
 public function aksi_kasir(Request $request)
 {
     $model = new M_lelang();
@@ -581,7 +579,51 @@ public function aksi_kasir(Request $request)
     }
     
 }    
+public function Nota ($id)
+{$userLevel = session()->get('Level');
+    $allowedLevels = ['petugas','admin'];
 
+    if (in_array($userLevel, $allowedLevels)) {
+    $user_id = session()->get('id_user');
+    $model = new M_lelang();
+
+       // Fetch all logo data
+       $logoData = $model->tampil('logo'); // Fetch all logos
+       $filteredLogo = $logoData->filter(function ($item) {
+           return $item->id_logo == 1; // Adjust this condition as needed
+       });
+       $data['satu'] = $filteredLogo->first();
+       $logs = $model->getActivityLogs();
+       $data['users'] = $model->tampil('user', 'id_user');
+       try {
+           $timestamp = now(); // Use Laravel's now() function for current time
+           DB::table('activity_log')->insert([
+               'user_id' => $user_id,
+               'activity' => 'View',
+               'description' => 'User viewed Nota.',
+               'timestamp' => $timestamp,
+           ]);
+       }catch (\Exception $e) {
+               // Log the error if activity logging fails
+               logger()->error('Failed to log activity for user ID ' . $user_id . ': ' . $e->getMessage());
+           }
+           $where = ['id_transaksi' => $id];
+    $data1['sa'] = $model->getWhere('transaksi', $where );
+    $where1 = ['transaksi_id' => $id];
+    $data1['detail'] = DB::table('detail_transaksi')
+    ->join('menu', 'detail_transaksi.menu_id', '=', 'menu.id_menu')
+    ->where($where1)
+    ->get();
+    $data1['satu'] = $filteredLogo->first();
+    $logs = $model->getActivityLogs();
+    
+    echo view ('esensial/header', $data);
+    echo view('website/kasir/Nota',$data1);
+    echo view ('esensial/footer');
+} else {
+    return redirect()->to('http://localhost:8080/home/error_404');
+}
+}
  
 }
 

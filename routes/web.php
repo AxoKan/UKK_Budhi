@@ -42,3 +42,4 @@ Route::post('/aksi_add_meja', [Website::class, 'aksi_add_meja']);
 Route::get('/scan', [Website::class, 'scan'])->name('scan');
 Route::get('/Kasir/{id}', [Website::class, 'Kasir'])->name('Kasir');
 Route::post('/aksi_kasir', [Website::class, 'aksi_kasir']);
+Route::get('/Nota/{id}', [Website::class, 'Nota'])->name('Nota');

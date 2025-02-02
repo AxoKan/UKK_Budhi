@@ -72,7 +72,7 @@
                         <div class="progress-detail mt-3 text-center">
                            <p class="mb-1" style="font-size: 1.2rem;">Total Menu</p> <!-- Teks lebih besar -->
                            <h4 class="counter" style="font-size: 1.5rem;">{{ $jumlah_Menu }}</h4>
-                           <a href="{{ url('') }}" class="btn btn-outline-primary rounded-pill mt-3 btn-lg">Detail</a> <!-- Tombol lebih besar -->
+                           <a href="{{ url('Menu') }}" class="btn btn-outline-primary rounded-pill mt-3 btn-lg">Detail</a> <!-- Tombol lebih besar -->
                         </div>
                      </div>
                   </div>
@@ -86,7 +86,7 @@
                         <div class="progress-detail mt-3 text-center">
                            <p class="mb-1" style="font-size: 1.2rem;">Total Transaksi</p>
                            <h4 class="counter" style="font-size: 1.5rem;">{{ $jumlah_transaksi }}</h4>
-                           <a href="{{ url('') }}" class="btn btn-outline-success rounded-pill mt-3 btn-lg">Detail</a>
+                           <a href="{{ url('transaksi') }}" class="btn btn-outline-success rounded-pill mt-3 btn-lg">Detail</a>
                         </div>
                      </div>
                   </div>
