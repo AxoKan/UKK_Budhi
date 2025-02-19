@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\Website;
 /*
 |--------------------------------------------------------------------------
@@ -14,32 +13,5 @@ use App\Http\Controllers\Website;
 |
 */
 
-Route::get('/', [Controller::class, 'login'])->name('login');
-Route::post('/aksi_login', [Controller::class, 'aksi_login']);
-Route::get('/login1', [Controller::class, 'login1']);
-Route::get('/dashboard', [Controller::class, 'dashboard'])->name('dashboard');  
-Route::get('/activity_log', [Controller::class, 'activitylog'])->name('activity_log');
-Route::get('/setting/1', [Controller::class, 'setting'])->name('setting'); 
-Route::post('/aksi_setting', [Controller::class, 'aksi_setting']);
-Route::get('/User', [Controller::class, 'User'])->name('User'); 
-Route::get('/TambahUser', [Controller::class, 'add_user'])->name('add_user');
-Route::post('/aksi_add_user', [Controller::class, 'aksi_add_user']);
-Route::get('delete/{id}', [Controller::class, 'DelUser'])->name('DelUser');
-Route::get('/UpdateUser/{id}', [Controller::class, 'Update_user'])->name('Update_user');
-Route::post('/aksi_update_user', [Controller::class, 'aksi_update_user']);
-Route::get('/Menu', [Website::class, 'menu'])->name('Menu');
-Route::get('deleteMenu/{id}', [Website::class, 'deleteMenu'])->name('deleteMenu');
-Route::get('/TambahMenu', [Website::class, 'TambahMenu'])->name('TambahMenu');
-Route::post('/aksi_add_Menu', [Website::class, 'aksi_add_Menu']);
-Route::get('/EditMenu/{id}', [Website::class, 'EditMenu'])->name('EditMenu');
-Route::post('/aksi_Edit_Menu', [Website::class, 'aksi_Edit_Menu']);
-Route::get('/transaksi', [Website::class, 'transaksi'])->name('transaksi');
-Route::get('/status/{id}', [Website::class, 'status'])->name('status');
-Route::get('/Cancel/{id}', [Website::class, 'Cancel'])->name('Cancel');
-Route::get('/meja', [Website::class, 'meja'])->name('meja');
-Route::get('/tambah_meja', [Website::class, 'tambah_meja'])->name('tambah_meja');
-Route::post('/aksi_add_meja', [Website::class, 'aksi_add_meja']);
-Route::get('/scan', [Website::class, 'scan'])->name('scan');
-Route::get('/Kasir/{id}', [Website::class, 'Kasir'])->name('Kasir');
-Route::post('/aksi_kasir', [Website::class, 'aksi_kasir']);
-Route::get('/Nota/{id}', [Website::class, 'Nota'])->name('Nota');
+Route::get('/', [Website::class, 'diskon'])->name('diskon');
+
